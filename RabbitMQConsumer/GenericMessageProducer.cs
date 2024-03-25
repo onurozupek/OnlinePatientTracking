@@ -1,10 +1,14 @@
 ﻿using RabbitMQ.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace ManagementMicroservice.Services;
+namespace RabbitMQConsumer;
 
-public class MessageProducer : IMessageProducer
+public class GenericMessageProducer : IGenericMessageProducer
 {
     public void SendingMessage<T>(T message, string queueName)
     {
@@ -16,8 +20,8 @@ public class MessageProducer : IMessageProducer
             VirtualHost = "/"
         };
 
-        var conn = factory.CreateConnection();
-        using var channel = conn.CreateModel();
+        using var connection = factory.CreateConnection();
+        using var channel = connection.CreateModel();
 
         channel.QueueDeclare(queueName, durable: true, exclusive: false);
 
@@ -25,6 +29,5 @@ public class MessageProducer : IMessageProducer
         var body = Encoding.UTF8.GetBytes(jsonString);
 
         channel.BasicPublish("", queueName, body: body);
-
     }
 }

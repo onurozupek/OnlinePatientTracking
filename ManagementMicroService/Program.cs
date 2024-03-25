@@ -2,6 +2,7 @@ using ManagementMicroservice.DAL;
 using ManagementMicroservice.Repositories;
 using ManagementMicroservice.Services;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQConsumer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,13 +13,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStr")));
-builder.Services.AddScoped<IMessageProducer, MessageProducer>();
-builder.Services.AddScoped<IMessageConsumer, MessageConsumer>();
+builder.Services.AddScoped<IGenericMessageProducer, GenericMessageProducer>();
+builder.Services.AddScoped<IGenericMessageConsumer, GenericMessageConsumer>();
 builder.Services.AddScoped(typeof(GenericRepository<>));
+builder.Services.AddSingleton<MessageProcessor>();
 
 var app = builder.Build();
 
 Initializer.CreateSeedData(app);
+
+var messageProcessor = app.Services.GetRequiredService<MessageProcessor>();
+
+messageProcessor.StartProcessing("appointmentCreated");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

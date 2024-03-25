@@ -23,4 +23,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AppointmentSystemMicroservice\AppointmentSystemMicroservice.csproj" />
+    <ProjectReference Include="..\RabbitMQConsumer\RabbitMQConsumer.csproj" />
+  </ItemGroup>
+
 </Project>

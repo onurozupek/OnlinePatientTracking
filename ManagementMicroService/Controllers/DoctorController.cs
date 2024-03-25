@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using ManagementMicroservice.DAL;
 using ManagementMicroservice.Entities;
 using ManagementMicroservice.Repositories;
-using ManagementMicroservice.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using RabbitMQConsumer;
 
 namespace ManagementMicroservice.Controllers
 {
@@ -21,10 +21,10 @@ namespace ManagementMicroservice.Controllers
     {
         private readonly AppDbContext _context;
         private readonly GenericRepository<Doctor> _genericRepository;
-        private readonly IMessageProducer _messageProducer;
-        private readonly IMessageConsumer _messageConsumer;
+        private readonly IGenericMessageProducer _messageProducer;
+        private readonly IGenericMessageConsumer _messageConsumer;
 
-        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository, IMessageProducer messageProducer, IMessageConsumer messageConsumer)
+        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository, IGenericMessageProducer messageProducer, IGenericMessageConsumer messageConsumer)
         {
             _context = context;
             _genericRepository = genericRepository;
@@ -35,7 +35,6 @@ namespace ManagementMicroservice.Controllers
         [HttpGet]
         public async Task<IEnumerable<Doctor>> GetAllDoctors()
         {
-            var message = await _messageConsumer.ConsumeMessage("doctorAdded");
             return await _genericRepository.GetAllAsync();
         }
 
@@ -62,7 +61,7 @@ namespace ManagementMicroservice.Controllers
         {
             await _genericRepository.AddAsync(doctor);
             _messageProducer.SendingMessage<Doctor>(doctor, "doctorAdded");
-            return Ok("Doctor added successfully!");
+            return Ok(doctor);
         }
 
         // DELETE: api/Doctors/5
