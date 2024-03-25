@@ -1,7 +1,7 @@
-﻿using ManagementMicroService.Entities;
+﻿using ManagementMicroservice.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ManagementMicroService.DAL;
+namespace ManagementMicroservice.DAL;
 
 public class AppDbContext : DbContext
 {

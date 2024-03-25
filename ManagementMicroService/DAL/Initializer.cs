@@ -1,6 +1,6 @@
-﻿using ManagementMicroService.Entities;
+﻿using ManagementMicroservice.Entities;
 
-namespace ManagementMicroService.DAL;
+namespace ManagementMicroservice.DAL;
 
 public class Initializer
 {

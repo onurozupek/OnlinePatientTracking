@@ -1,4 +1,6 @@
-﻿namespace ManagementMicroService.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace ManagementMicroservice.Entities;
 
 public class Department
 {

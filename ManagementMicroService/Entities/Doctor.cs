@@ -1,4 +1,4 @@
-﻿namespace ManagementMicroService.Entities;
+﻿namespace ManagementMicroservice.Entities;
 
 public class Doctor
 {
@@ -7,4 +7,5 @@ public class Doctor
     public string Code { get; set; }
     public string Description { get; set; }
     public string Phone { get; set; }
+    public int Appointments { get; set; }
 }

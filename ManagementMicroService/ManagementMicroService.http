@@ -1,6 +1,6 @@
-@ManagementMicroService_HostAddress = http://localhost:5087
+@ManagementMicroservice_HostAddress = http://localhost:5087
 
-GET {{ManagementMicroService_HostAddress}}/weatherforecast/
+GET {{ManagementMicroservice_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

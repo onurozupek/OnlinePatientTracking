@@ -11,17 +11,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ManagementMicroService/ManagementMicroService.csproj", "ManagementMicroService/"]
-RUN dotnet restore "./ManagementMicroService/ManagementMicroService.csproj"
+COPY ["AppointmentSystemMicroservice/AppointmentSystemMicroservice.csproj", "AppointmentSystemMicroservice/"]
+RUN dotnet restore "./AppointmentSystemMicroservice/AppointmentSystemMicroservice.csproj"
 COPY . .
-WORKDIR "/src/ManagementMicroService"
-RUN dotnet build "./ManagementMicroService.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/AppointmentSystemMicroservice"
+RUN dotnet build "./AppointmentSystemMicroservice.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ManagementMicroService.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./AppointmentSystemMicroservice.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ManagementMicroService.dll"]
+ENTRYPOINT ["dotnet", "AppointmentSystemMicroservice.dll"]
