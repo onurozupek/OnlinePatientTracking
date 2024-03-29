@@ -19,7 +19,6 @@ var app = builder.Build();
 
 Initializer.CreateSeedData(app);
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
