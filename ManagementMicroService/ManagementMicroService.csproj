@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppointmentSystemMicroservice\AppointmentSystemMicroservice.csproj" />
-    <ProjectReference Include="..\RabbitMQConsumer\RabbitMQConsumer.csproj" />
   </ItemGroup>
 
 </Project>

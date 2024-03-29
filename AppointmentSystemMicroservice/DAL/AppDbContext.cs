@@ -10,4 +10,6 @@ public class AppDbContext : DbContext
 
     }
     public DbSet<Appointment> Appointments { get; set; }
+    public DbSet<Patient> Patients { get; set; }
+    public DbSet<PatientVisit> PatientVisits { get; set; }
 }

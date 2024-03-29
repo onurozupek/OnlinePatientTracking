@@ -8,7 +8,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IGenericRepository<TEntity> _genericRepository;
-    private readonly DbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
 
     public GenericRepository(AppDbContext context)

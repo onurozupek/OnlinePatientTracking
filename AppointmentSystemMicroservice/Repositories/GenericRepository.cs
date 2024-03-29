@@ -7,7 +7,7 @@ namespace AppointmentSystemMicroservice.Repositories;
 public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
     private readonly IGenericRepository<TEntity> _genericRepository;
-    private readonly DbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
 
     public GenericRepository(AppDbContext context)

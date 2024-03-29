@@ -47,7 +47,7 @@ namespace ManagementMicroservice.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("ManagementMicroservice.Entities.Doctor", b =>
@@ -79,7 +79,7 @@ namespace ManagementMicroservice.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 #pragma warning restore 612, 618
         }

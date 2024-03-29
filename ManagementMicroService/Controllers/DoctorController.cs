@@ -11,7 +11,6 @@ using ManagementMicroservice.Repositories;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using RabbitMQConsumer;
 
 namespace ManagementMicroservice.Controllers
 {
@@ -21,15 +20,11 @@ namespace ManagementMicroservice.Controllers
     {
         private readonly AppDbContext _context;
         private readonly GenericRepository<Doctor> _genericRepository;
-        private readonly IGenericMessageProducer _messageProducer;
-        private readonly IGenericMessageConsumer _messageConsumer;
 
-        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository, IGenericMessageProducer messageProducer, IGenericMessageConsumer messageConsumer)
+        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository)
         {
             _context = context;
             _genericRepository = genericRepository;
-            _messageProducer = messageProducer;
-            _messageConsumer = messageConsumer;
         }
 
         [HttpGet]
@@ -60,7 +55,6 @@ namespace ManagementMicroservice.Controllers
         public async Task<ActionResult> AddDoctor(Doctor doctor)
         {
             await _genericRepository.AddAsync(doctor);
-            _messageProducer.SendingMessage<Doctor>(doctor, "doctorAdded");
             return Ok(doctor);
         }
 
