@@ -12,7 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ", "RabbitMQ", "{34
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQProcessor", "RabbitMQProcessor\RabbitMQProcessor.csproj", "{8552DBC9-F9D4-405C-9D0F-34652AB2956D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQProcessor", "RabbitMQProcessor\RabbitMQProcessor.csproj", "{8552DBC9-F9D4-405C-9D0F-34652AB2956D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Q&AMicroservice", "Q&AMicroservice\Q&AMicroservice.csproj", "{7CD59574-8C2E-4F14-B17A-4147735A80AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationMicroservice", "NotificationMicroservice\NotificationMicroservice.csproj", "{91C0626B-7D70-446F-9BFE-91A9C8CD8E62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{8552DBC9-F9D4-405C-9D0F-34652AB2956D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8552DBC9-F9D4-405C-9D0F-34652AB2956D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8552DBC9-F9D4-405C-9D0F-34652AB2956D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD59574-8C2E-4F14-B17A-4147735A80AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD59574-8C2E-4F14-B17A-4147735A80AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD59574-8C2E-4F14-B17A-4147735A80AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD59574-8C2E-4F14-B17A-4147735A80AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C0626B-7D70-446F-9BFE-91A9C8CD8E62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C0626B-7D70-446F-9BFE-91A9C8CD8E62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C0626B-7D70-446F-9BFE-91A9C8CD8E62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C0626B-7D70-446F-9BFE-91A9C8CD8E62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

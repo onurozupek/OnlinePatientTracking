@@ -9,18 +9,18 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["AppointmentSystemMicroservice/AppointmentSystemMicroservice.csproj", "AppointmentSystemMicroservice/"]
+COPY ["Q&AMicroservice/Q&AMicroservice.csproj", "Q&AMicroservice/"]
 COPY ["../RabbitMQProcessor/RabbitMQProcessor.csproj", "RabbitMQProcessor/"]
-RUN dotnet restore "./AppointmentSystemMicroservice/AppointmentSystemMicroservice.csproj"
+RUN dotnet restore "./Q&AMicroservice/Q&AMicroservice.csproj"
 COPY . .
-WORKDIR "/src/AppointmentSystemMicroservice"
-RUN dotnet build "./AppointmentSystemMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Q&AMicroservice"
+RUN dotnet build "./Q&AMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./AppointmentSystemMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Q&AMicroservice.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "AppointmentSystemMicroservice.dll"]
+ENTRYPOINT ["dotnet", "Q&AMicroservice.dll"]

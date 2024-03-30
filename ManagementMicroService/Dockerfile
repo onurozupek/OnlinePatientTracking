@@ -11,17 +11,20 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["RabbitMQProducerAPI/RabbitMQProducerAPI.csproj", "RabbitMQProducerAPI/"]
-RUN dotnet restore "./RabbitMQProducerAPI/RabbitMQProducerAPI.csproj"
+COPY ["ManagementMicroservice.csproj", "ManagementMicroservice/"]
+RUN dotnet restore "./ManagementMicroservice/ManagementMicroservice.csproj"
 COPY . .
-WORKDIR "/src/RabbitMQProducerAPI"
-RUN dotnet build "./RabbitMQProducerAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/ManagementMicroservice"
+RUN dotnet build "./ManagementMicroservice.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./RabbitMQProducerAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./ManagementMicroservice.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "RabbitMQProducerAPI.dll"]
+ENTRYPOINT ["dotnet", "ManagementMicroservice.dll"]
+
+# Set user context to root
+USER root

@@ -11,6 +11,7 @@ using ManagementMicroservice.Repositories;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
+using RabbitMQProcessor;
 
 namespace ManagementMicroservice.Controllers
 {
@@ -20,11 +21,13 @@ namespace ManagementMicroservice.Controllers
     {
         private readonly AppDbContext _context;
         private readonly GenericRepository<Doctor> _genericRepository;
+        private readonly IGenericMessageProducer _rabbitMQProducer;
 
-        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository)
+        public DoctorController(AppDbContext context, GenericRepository<Doctor> genericRepository, IGenericMessageProducer rabbitMQProducer)
         {
             _context = context;
             _genericRepository = genericRepository;
+            _rabbitMQProducer = rabbitMQProducer;
         }
 
         [HttpGet]
@@ -70,6 +73,15 @@ namespace ManagementMicroservice.Controllers
 
             _genericRepository.Remove(Doctor);
             return Ok();
+        }
+
+        [HttpPost("AnswerQuestion")]
+        public IActionResult AnswerQuestion(string answer)
+        {
+            _rabbitMQProducer.SendingMessage(answer, "answerQueue");
+
+            // Return the received message
+            return Ok("Answer sent successfully.");
         }
 
         private bool DoctorExists(int id)

@@ -8,4 +8,5 @@ public class Doctor
     public string Description { get; set; }
     public string Phone { get; set; }
     public int Appointments { get; set; }
+    public string Question { get; set; }
 }
